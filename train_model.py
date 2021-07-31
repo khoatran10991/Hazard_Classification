@@ -109,6 +109,7 @@ def main(args):
 
     print("START MAIN CLASS TRAINING MODEL")
     list_image, list_label = load_data(args.img_path)
+    print("LIST CLASSES BEFORE SHUFFLE", set(list_label))
     labels = encode_label(list_label, args.mapping_file)
     n_classes = len(set(list_label))
     print("NUM CLASSES", n_classes)

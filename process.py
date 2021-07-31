@@ -18,7 +18,9 @@ class HazardClassification():
         _, self.model = build_model(self.num_class, appEfficientNet)
         self.model.load_weights(os.path.join(dir, 'ckpt', ckpt))
         self.model.compile(Adam(learning_rate=0.001, decay=5e-5), 'categorical_crossentropy', ['accuracy'])
+        print("LABEL FILE", label)
         print("LABEL", self.label_map)
+        print("MODEL CKPT FILE", ckpt)
 
     def run(self, image, return_label=True):
         image = cv2.resize(image, (224, 224), interpolation=cv2.INTER_AREA)
@@ -26,9 +28,7 @@ class HazardClassification():
         image = imagenet_utils.preprocess_input(image)
 
         result = self.model.predict(image)
-        print("result {}".format(result))
         result = np.argmax(result, axis=1)
-        print("result argmax {}".format(result))
 
         if return_label:
             return self.decode_label(result)

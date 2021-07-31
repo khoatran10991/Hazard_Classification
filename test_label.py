@@ -21,7 +21,7 @@ def main(args):
         print('Idx: {}'.format(idx))
         ax[int(idx/5), idx%5].imshow(img)
         ax[int(idx/5), idx%5].axis('off')
-        ax[int(idx/5), idx%5].set_title('Predic: {}'.format(class_res))
+        ax[int(idx/5), idx%5].set_title(class_res)
     plt.show()
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()

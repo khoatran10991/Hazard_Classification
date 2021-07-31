@@ -101,7 +101,6 @@ def main(args):
     labels = encode_label(list_label, args.mapping_file)
     n_classes = len(set(list_label))
     print("NUM CLASSES", n_classes)
-    print("LIST CLASSES AFTER SHUFFLE", set(list_label))
     baseModel, mainModel = build_model(n_classes, args.appEfficientNet)
 
     

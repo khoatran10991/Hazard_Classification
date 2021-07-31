@@ -1,0 +1,16 @@
+name: hazard_env
+dependencies:
+  - python
+  - keras
+  - scikit-learn
+  - pandas
+  - numpy
+  - opencv
+  - pillow
+  - matplotlib
+  - jupyter
+  - tensorflow
+  - pip
+  - pip:
+    - efficientnet
+    - Augmentor

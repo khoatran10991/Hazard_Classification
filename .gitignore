@@ -145,3 +145,5 @@ images-cropped-original
 images-cropped-original/
 images-test
 images-test/
+ckpt
+ckpt/

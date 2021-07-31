@@ -19,6 +19,7 @@ def load_data(path_image):
     image_path = os.listdir(path_image)
     image_path = list(filter(lambda x: x[-3:].lower() == 'jpg' or x[-3:].lower() == 'png', image_path))
     #image_path = np.repeat(image_path, 10)
+    # random.shuffle(image_path)
 
     #Result variable
     list_image = []
@@ -86,19 +87,7 @@ def train_model(model, baseModel, X_train, y_train, X_test=None, y_test=None, ar
             H = model.fit(aug_train, epochs=args.epoch_step_1, callbacks=[checkpoint, early_stop])
 
     if(args.step <= 2):
-        print("TRAINING MODEL STEP 2...")
-        # unfreeze all CNN layer in EfficientNetB2:
-        for layer in baseModel.layers:
-            layer.trainable = True
-
-        opt = Adam(learning_rate=0.001, decay=5e-5)
-        model.compile(opt, 'categorical_crossentropy', ['accuracy'])
-        if (args.validation):
-            H = model.fit(aug_train, validation_data=aug_valid, epochs=args.epoch_step_2, callbacks=[checkpoint,  early_stop])
-        else:
-            H = model.fit(aug_train, epochs=args.epoch_step_2, callbacks=[checkpoint,  early_stop])
-    if(args.step <= 3):
-        print("EVALUTE MODEL STEP 3...")
+        print("EVALUTE MODEL STEP 2...")
         opt = Adam(learning_rate=0.001, decay=5e-5)
         model.compile(opt, 'categorical_crossentropy', ['accuracy'])
         score = model.evaluate(aug_test, verbose=1, batch_size=batch_size)
@@ -129,8 +118,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--img_path', help='Path to folder which contains images.', type=str, default='./images-cropped')
     parser.add_argument('--mapping_file', help='Path to save label map file.', type=str, default='label_map.pkl')
-    parser.add_argument('--epoch_step_1', help='Number of epochs for training step 1.', type=int, default=30)
-    parser.add_argument('--epoch_step_2', help='Number of epochs for training step 2.', type=int, default=100)
+    parser.add_argument('--epoch_step_1', help='Number of epochs for training step 1.', type=int, default=100)
     parser.add_argument('--validation', help='Wheather to split data for validation.', type=bool, default=True)
     parser.add_argument('--step', help='Training model step (1, 2, 3)', type=int, default=0)
     parser.add_argument('--appEfficientNet', help='EfficientNetB0, 1, 2, 3, 4, 5, 6, 7', type=int, default=0)

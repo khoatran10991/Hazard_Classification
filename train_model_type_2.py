@@ -88,7 +88,7 @@ def train_model(model, baseModel, X_train, y_train, X_test=None, y_test=None, ar
     if(args.step <= 2):
         print("TRAINING MODEL STEP 2...")
         # unfreeze all CNN layer in EfficientNetB2:
-        for layer in baseModel.layers[182:]:
+        for layer in baseModel.layers[162:]:
             layer.trainable = True
 
         opt = Adam(learning_rate=0.001, decay=5e-5)
